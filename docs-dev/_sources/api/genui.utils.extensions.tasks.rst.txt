@@ -1,0 +1,109 @@
+genui.utils.extensions.tasks package
+====================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.utils.extensions.tasks.migrations
+
+Submodules
+----------
+
+genui.utils.extensions.tasks.admin module
+-----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.apps module
+----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.genuisetup module
+----------------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.models module
+------------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.progress module
+--------------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.progress
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.serializers module
+-----------------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.tasks module
+-----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.tasks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.tests module
+-----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.urls module
+----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.utils module
+-----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.extensions.tasks.views module
+-----------------------------------------
+
+.. automodule:: genui.utils.extensions.tasks.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.utils.extensions.tasks
+   :members:
+   :show-inheritance:
+   :undoc-members:

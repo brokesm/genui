@@ -1,0 +1,95 @@
+genui.maps package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.maps.extensions
+   genui.maps.genuimodels
+   genui.maps.migrations
+
+Submodules
+----------
+
+genui.maps.admin module
+-----------------------
+
+.. automodule:: genui.maps.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.apps module
+----------------------
+
+.. automodule:: genui.maps.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.genuisetup module
+----------------------------
+
+.. automodule:: genui.maps.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.models module
+------------------------
+
+.. automodule:: genui.maps.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.serializers module
+-----------------------------
+
+.. automodule:: genui.maps.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.tasks module
+-----------------------
+
+.. automodule:: genui.maps.tasks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.tests module
+-----------------------
+
+.. automodule:: genui.maps.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.urls module
+----------------------
+
+.. automodule:: genui.maps.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.views module
+-----------------------
+
+.. automodule:: genui.maps.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.maps
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,45 @@
+genui.models.genuimodels package
+================================
+
+Submodules
+----------
+
+genui.models.genuimodels.algorithms module
+------------------------------------------
+
+.. automodule:: genui.models.genuimodels.algorithms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.genuimodels.bases module
+-------------------------------------
+
+.. automodule:: genui.models.genuimodels.bases
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.genuimodels.builders module
+----------------------------------------
+
+.. automodule:: genui.models.genuimodels.builders
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.genuimodels.metrics module
+---------------------------------------
+
+.. automodule:: genui.models.genuimodels.metrics
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.models.genuimodels
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,21 @@
+genui.compounds.extensions.csvimports.migrations package
+========================================================
+
+Submodules
+----------
+
+genui.compounds.extensions.csvimports.migrations.0001\_initial module
+---------------------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.migrations.0001_initial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds.extensions.csvimports.migrations
+   :members:
+   :show-inheritance:
+   :undoc-members:

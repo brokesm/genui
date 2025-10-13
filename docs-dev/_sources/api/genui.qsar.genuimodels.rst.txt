@@ -1,0 +1,37 @@
+genui.qsar.genuimodels package
+==============================
+
+Submodules
+----------
+
+genui.qsar.genuimodels.bases module
+-----------------------------------
+
+.. automodule:: genui.qsar.genuimodels.bases
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.genuimodels.builders module
+--------------------------------------
+
+.. automodule:: genui.qsar.genuimodels.builders
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.genuimodels.descriptors module
+-----------------------------------------
+
+.. automodule:: genui.qsar.genuimodels.descriptors
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.qsar.genuimodels
+   :members:
+   :show-inheritance:
+   :undoc-members:

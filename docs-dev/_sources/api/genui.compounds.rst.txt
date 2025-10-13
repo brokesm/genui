@@ -1,0 +1,112 @@
+genui.compounds package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.compounds.exporters
+   genui.compounds.extensions
+   genui.compounds.initializers
+   genui.compounds.migrations
+
+Submodules
+----------
+
+genui.compounds.admin module
+----------------------------
+
+.. automodule:: genui.compounds.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.apps module
+---------------------------
+
+.. automodule:: genui.compounds.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.genuisetup module
+---------------------------------
+
+.. automodule:: genui.compounds.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.helpers module
+------------------------------
+
+.. automodule:: genui.compounds.helpers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.models module
+-----------------------------
+
+.. automodule:: genui.compounds.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.serializers module
+----------------------------------
+
+.. automodule:: genui.compounds.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.signals module
+------------------------------
+
+.. automodule:: genui.compounds.signals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.tasks module
+----------------------------
+
+.. automodule:: genui.compounds.tasks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.tests module
+----------------------------
+
+.. automodule:: genui.compounds.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.urls module
+---------------------------
+
+.. automodule:: genui.compounds.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.views module
+----------------------------
+
+.. automodule:: genui.compounds.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds
+   :members:
+   :show-inheritance:
+   :undoc-members:

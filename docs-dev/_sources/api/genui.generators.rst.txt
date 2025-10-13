@@ -1,0 +1,86 @@
+genui.generators package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.generators.extensions
+   genui.generators.migrations
+
+Submodules
+----------
+
+genui.generators.admin module
+-----------------------------
+
+.. automodule:: genui.generators.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.apps module
+----------------------------
+
+.. automodule:: genui.generators.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.genuisetup module
+----------------------------------
+
+.. automodule:: genui.generators.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.models module
+------------------------------
+
+.. automodule:: genui.generators.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.serializers module
+-----------------------------------
+
+.. automodule:: genui.generators.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.signals module
+-------------------------------
+
+.. automodule:: genui.generators.signals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.urls module
+----------------------------
+
+.. automodule:: genui.generators.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.generators.views module
+-----------------------------
+
+.. automodule:: genui.generators.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.generators
+   :members:
+   :show-inheritance:
+   :undoc-members:

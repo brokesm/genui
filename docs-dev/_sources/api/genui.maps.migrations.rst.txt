@@ -1,0 +1,21 @@
+genui.maps.migrations package
+=============================
+
+Submodules
+----------
+
+genui.maps.migrations.0001\_initial module
+------------------------------------------
+
+.. automodule:: genui.maps.migrations.0001_initial
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.maps.migrations
+   :members:
+   :show-inheritance:
+   :undoc-members:

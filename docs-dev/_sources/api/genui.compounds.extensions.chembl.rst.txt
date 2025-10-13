@@ -1,0 +1,93 @@
+genui.compounds.extensions.chembl package
+=========================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.compounds.extensions.chembl.migrations
+
+Submodules
+----------
+
+genui.compounds.extensions.chembl.admin module
+----------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.apps module
+---------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.genuisetup module
+---------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.initializers module
+-----------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.initializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.models module
+-----------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.serializers module
+----------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.tests module
+----------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.urls module
+---------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.chembl.views module
+----------------------------------------------
+
+.. automodule:: genui.compounds.extensions.chembl.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds.extensions.chembl
+   :members:
+   :show-inheritance:
+   :undoc-members:

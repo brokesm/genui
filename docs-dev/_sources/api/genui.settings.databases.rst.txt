@@ -1,0 +1,21 @@
+genui.settings.databases package
+================================
+
+Submodules
+----------
+
+genui.settings.databases.debug module
+-------------------------------------
+
+.. automodule:: genui.settings.databases.debug
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.settings.databases
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,101 @@
+genui.compounds.extensions.csvimports package
+=============================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.compounds.extensions.csvimports.migrations
+
+Submodules
+----------
+
+genui.compounds.extensions.csvimports.admin module
+--------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.apps module
+-------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.genuisetup module
+-------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.initializer module
+--------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.initializer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.models module
+---------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.parser module
+---------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.parser
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.serializers module
+--------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.tests module
+--------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.urls module
+-------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.csvimports.views module
+--------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.csvimports.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds.extensions.csvimports
+   :members:
+   :show-inheritance:
+   :undoc-members:

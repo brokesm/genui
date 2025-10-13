@@ -1,0 +1,126 @@
+genui.utils package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.utils.extensions
+   genui.utils.migrations
+
+Submodules
+----------
+
+genui.utils.admin module
+------------------------
+
+.. automodule:: genui.utils.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.apps module
+-----------------------
+
+.. automodule:: genui.utils.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.exceptions module
+-----------------------------
+
+.. automodule:: genui.utils.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.genuisetup module
+-----------------------------
+
+.. automodule:: genui.utils.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.gpu module
+----------------------
+
+.. automodule:: genui.utils.gpu
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.init module
+-----------------------
+
+.. automodule:: genui.utils.init
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.inspection module
+-----------------------------
+
+.. automodule:: genui.utils.inspection
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.models module
+-------------------------
+
+.. automodule:: genui.utils.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.pagination module
+-----------------------------
+
+.. automodule:: genui.utils.pagination
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.serializers module
+------------------------------
+
+.. automodule:: genui.utils.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.tests module
+------------------------
+
+.. automodule:: genui.utils.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.urls module
+-----------------------
+
+.. automodule:: genui.utils.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.utils.views module
+------------------------
+
+.. automodule:: genui.utils.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.utils
+   :members:
+   :show-inheritance:
+   :undoc-members:

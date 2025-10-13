@@ -1,0 +1,94 @@
+genui.accounts package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.accounts.extensions
+   genui.accounts.migrations
+
+Submodules
+----------
+
+genui.accounts.admin module
+---------------------------
+
+.. automodule:: genui.accounts.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.apps module
+--------------------------
+
+.. automodule:: genui.accounts.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.authentication module
+------------------------------------
+
+.. automodule:: genui.accounts.authentication
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.genuisetup module
+--------------------------------
+
+.. automodule:: genui.accounts.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.models module
+----------------------------
+
+.. automodule:: genui.accounts.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.serializers module
+---------------------------------
+
+.. automodule:: genui.accounts.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.tests module
+---------------------------
+
+.. automodule:: genui.accounts.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.urls module
+--------------------------
+
+.. automodule:: genui.accounts.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.accounts.views module
+---------------------------
+
+.. automodule:: genui.accounts.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.accounts
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -1,0 +1,29 @@
+genui.compounds.initializers package
+====================================
+
+Submodules
+----------
+
+genui.compounds.initializers.base module
+----------------------------------------
+
+.. automodule:: genui.compounds.initializers.base
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.initializers.exceptions module
+----------------------------------------------
+
+.. automodule:: genui.compounds.initializers.exceptions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds.initializers
+   :members:
+   :show-inheritance:
+   :undoc-members:

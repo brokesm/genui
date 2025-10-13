@@ -1,0 +1,10 @@
+genui.utils.extensions.tasks.migrations package
+===============================================
+
+Module contents
+---------------
+
+.. automodule:: genui.utils.extensions.tasks.migrations
+   :members:
+   :show-inheritance:
+   :undoc-members:

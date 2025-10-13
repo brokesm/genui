@@ -1,0 +1,61 @@
+genui.settings package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.settings.databases
+
+Submodules
+----------
+
+genui.settings.base module
+--------------------------
+
+.. automodule:: genui.settings.base
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.settings.celery module
+----------------------------
+
+.. automodule:: genui.settings.celery
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.settings.debug module
+---------------------------
+
+.. automodule:: genui.settings.debug
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.settings.genuibase module
+-------------------------------
+
+.. automodule:: genui.settings.genuibase
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.settings.test module
+--------------------------
+
+.. automodule:: genui.settings.test
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.settings
+   :members:
+   :show-inheritance:
+   :undoc-members:

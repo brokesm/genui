@@ -1,0 +1,95 @@
+genui.qsar package
+==================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.qsar.extensions
+   genui.qsar.genuimodels
+   genui.qsar.migrations
+
+Submodules
+----------
+
+genui.qsar.admin module
+-----------------------
+
+.. automodule:: genui.qsar.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.apps module
+----------------------
+
+.. automodule:: genui.qsar.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.genuisetup module
+----------------------------
+
+.. automodule:: genui.qsar.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.models module
+------------------------
+
+.. automodule:: genui.qsar.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.serializers module
+-----------------------------
+
+.. automodule:: genui.qsar.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.tasks module
+-----------------------
+
+.. automodule:: genui.qsar.tasks
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.tests module
+-----------------------
+
+.. automodule:: genui.qsar.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.urls module
+----------------------
+
+.. automodule:: genui.qsar.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.qsar.views module
+-----------------------
+
+.. automodule:: genui.qsar.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.qsar
+   :members:
+   :show-inheritance:
+   :undoc-members:

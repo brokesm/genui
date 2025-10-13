@@ -1,0 +1,29 @@
+genui.maps.genuimodels package
+==============================
+
+Submodules
+----------
+
+genui.maps.genuimodels.algorithms module
+----------------------------------------
+
+.. automodule:: genui.maps.genuimodels.algorithms
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.maps.genuimodels.builders module
+--------------------------------------
+
+.. automodule:: genui.maps.genuimodels.builders
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.maps.genuimodels
+   :members:
+   :show-inheritance:
+   :undoc-members:

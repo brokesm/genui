@@ -1,0 +1,62 @@
+genui package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.accounts
+   genui.compounds
+   genui.extensions
+   genui.generators
+   genui.maps
+   genui.models
+   genui.projects
+   genui.qsar
+   genui.settings
+   genui.utils
+
+Submodules
+----------
+
+genui.about module
+------------------
+
+.. automodule:: genui.about
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.apps module
+-----------------
+
+.. automodule:: genui.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.urls module
+-----------------
+
+.. automodule:: genui.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.wsgi module
+-----------------
+
+.. automodule:: genui.wsgi
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui
+   :members:
+   :show-inheritance:
+   :undoc-members:

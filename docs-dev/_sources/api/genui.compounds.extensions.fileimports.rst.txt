@@ -1,0 +1,45 @@
+genui.compounds.extensions.fileimports package
+==============================================
+
+Submodules
+----------
+
+genui.compounds.extensions.fileimports.initializer module
+---------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.fileimports.initializer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.fileimports.model module
+---------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.fileimports.model
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.fileimports.parser module
+----------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.fileimports.parser
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.compounds.extensions.fileimports.serializer module
+--------------------------------------------------------
+
+.. automodule:: genui.compounds.extensions.fileimports.serializer
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.compounds.extensions.fileimports
+   :members:
+   :show-inheritance:
+   :undoc-members:

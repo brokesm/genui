@@ -1,0 +1,103 @@
+genui.models package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   genui.models.extensions
+   genui.models.genuimodels
+   genui.models.migrations
+
+Submodules
+----------
+
+genui.models.admin module
+-------------------------
+
+.. automodule:: genui.models.admin
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.apps module
+------------------------
+
+.. automodule:: genui.models.apps
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.genuisetup module
+------------------------------
+
+.. automodule:: genui.models.genuisetup
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.helpers module
+---------------------------
+
+.. automodule:: genui.models.helpers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.models module
+--------------------------
+
+.. automodule:: genui.models.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.serializers module
+-------------------------------
+
+.. automodule:: genui.models.serializers
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.signals module
+---------------------------
+
+.. automodule:: genui.models.signals
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.tests module
+-------------------------
+
+.. automodule:: genui.models.tests
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.urls module
+------------------------
+
+.. automodule:: genui.models.urls
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+genui.models.views module
+-------------------------
+
+.. automodule:: genui.models.views
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Module contents
+---------------
+
+.. automodule:: genui.models
+   :members:
+   :show-inheritance:
+   :undoc-members:
