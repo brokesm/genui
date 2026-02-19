@@ -8,6 +8,9 @@ from abc import ABC, abstractmethod
 
 from django.db import transaction, IntegrityError
 from rdkit import Chem
+from rdkit.Chem import AllChem
+from rdkit.Chem import MACCSkeys
+
 
 from genui.compounds.initializers.exceptions import SMILESParsingError, StandardizationError, \
     InconsistentIdentifiersException
@@ -102,6 +105,8 @@ class MolSetInitializer(ABC):
         canon_smiles = Chem.MolToSmiles(rdmol_std, isomericSmiles=True, canonical=True, allHsExplicit=False)
         inchi = Chem.MolToInchi(rdmol_std)
         inchi_key = Chem.InchiToInchiKey(inchi)
+        morganFP = AllChem.GetMorganFingerprintAsBitVect(rdmol_std)
+        maccsFP = MACCSkeys.GenMACCSKeys(rdmol_std)
         if ChemicalEntity.objects.filter(inchiKey=inchi_key).exists():
             ret = ChemicalEntity.objects.get(
                 inchiKey=inchi_key
@@ -117,7 +122,9 @@ class MolSetInitializer(ABC):
                     canonicalSMILES=canon_smiles,
                     inchi=inchi,
                     inchiKey=inchi_key,
-                    rdMol=canon_smiles
+                    rdMol=canon_smiles,
+                    morganFP=morganFP,
+                    maccsFP=maccsFP
                 )
             except IntegrityError as exp:
                 attempted = {
