@@ -15,6 +15,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from django_rdkit.models import *
 from django.contrib.postgres.aggregates import ArrayAgg
+from django.db.models.functions import JSONObject
 
 from genui.compounds.models import Molecule, MolSet
 from genui.projects.models import Project
@@ -29,7 +30,9 @@ from genui.search.serializers import (
     PropertyFilterSerializer,
     PropertyFiltersResponseSerializer,
     BaseSearchParamsSerializer,
-    BaseSearchResponseSerializer
+    BaseSearchResponseSerializer,
+    InchiKeySearchParamsSerializer,
+    InchiKeySearchResponseSerializer
     )
 
 
@@ -127,8 +130,6 @@ class SimilaritySearch(BaseSearch):
 
         qs = (
             self.get_queryset()
-            .select_related("entity")
-            .prefetch_related("providers")
             .annotate(similarity=sim_fn(f"entity__{fp_type}", value))
             .order_by("-similarity")
             .filter(similarity__gte=threshold)
@@ -149,8 +150,6 @@ class SubstructureSearch(BaseSearch):
 
         qs = (
             self.get_queryset()
-            .select_related("entity")
-            .prefetch_related("providers")
             .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
             .filter(Q(providers__id__in=molset_ids) & Q(entity__rdMol__hassubstruct=smiles))
             .order_by(NUMHEAVYATOMS("entity__rdMol"))
@@ -169,8 +168,6 @@ class SmartsSearch(BaseSearch):
 
         qs = (
             self.get_queryset()
-            .select_related("entity")
-            .prefetch_related("providers")
             .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
             .filter(Q(providers__id__in=molset_ids) & Q(entity__rdMol__hassubstruct=QMOL(Value(smarts))))
             .order_by(NUMHEAVYATOMS("entity__rdMol"))
@@ -178,6 +175,49 @@ class SmartsSearch(BaseSearch):
         )
 
         return qs
+
+class InchiKeySearch(GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = InchiKeySearchParamsSerializer
+    response_serializer_class = InchiKeySearchResponseSerializer
+    
+    def build_queryset(self, params):
+        inchi_key = params["input"]
+
+        qs = (
+            self.get_queryset()
+            .filter(molset__molecules__entity__inchiKey=inchi_key)
+            .annotate(
+                providers=ArrayAgg(
+                    JSONObject(
+                        id=F("molset__id"),
+                        name=F("molset__name"),
+                    ),
+                    filter=Q(molset__molecules__entity__inchiKey=inchi_key),
+                    distinct=True,
+                )
+            )
+        )
+
+        return qs
+    
+    def do_search(self,request):
+        params_ser = self.serializer_class(data=request.data)
+        params_ser.is_valid(raise_exception=True)
+        params = params_ser.validated_data
+
+        qs = self.build_queryset(params)
+
+        resp = {
+            "query":params,
+            "occurrence":qs
+        }
+
+        print(qs[0])
+
+        resp_ser = self.response_serializer_class(resp)
+        return Response(resp_ser.data, status=status.HTTP_200_OK)
+
 
 class SimSearchMolsetViewSet(SearchMolset, SimilaritySearch):
 
@@ -199,6 +239,14 @@ class SmartsSearchMolsetViewSet(SearchMolset, SmartsSearch):
 
     @action(detail=False, methods=["post"], url_path="smarts")
     def molset_smarts_search(self, request, *args, **kwargs):
+        response = self.do_search(request)
+        return response
+    
+
+class InchiKeySearchViewSet(InchiKeySearch):
+
+    @action(detail=False, methods=["post"], url_path="inchikey")
+    def molset_inchikey_search(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
 

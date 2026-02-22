@@ -6,6 +6,7 @@ from rest_framework import serializers
 from genui.compounds.serializers import MoleculeSerializer, ActivitySerializer, MolSetSerializer
 from genui.projects.serializers import ProjectSerializer
 from genui.compounds.models import Molecule, ChemicalEntity, MolSet, Activity
+from genui.projects.models import Project
 from rdkit import Chem
 
 class BaseSearchParamsSerializer(serializers.Serializer):
@@ -109,6 +110,16 @@ class HitSerializer(MoleculeSerializer):
         fields = MoleculeSerializer.Meta.fields + ("similarity","project_ids",)
 
 
+class OccurrenceSerializer(ProjectSerializer):
+    providers = serializers.ListField(
+         child=serializers.DictField(read_only=True)
+     )
+
+    class Meta:
+        model = Project
+        fields = ("id", "name", "providers")
+
+
 class BaseSearchResponseSerializer(serializers.Serializer):
     query = serializers.DictField(read_only=True) 
 
@@ -127,7 +138,16 @@ class SubstructureSearchResponseSerializer(BaseSearchResponseSerializer):
 
 class SmartsSearchResponseSerializer(BaseSearchResponseSerializer):
     query = SmartsSearchParamsSerializer(read_only=True)
-    
+
+
+class InchiKeySearchParamsSerializer(serializers.Serializer):
+    input = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True, error_messages={"required": "Enter a valid inchiKey"})
+
+
+class InchiKeySearchResponseSerializer(serializers.Serializer):
+    query = InchiKeySearchParamsSerializer(read_only=True) 
+    occurrence = OccurrenceSerializer(read_only=True, many=True)
+
 
 class PropertyFiltersResponseSerializer(BaseSearchResponseSerializer):
     query = PropertyFilterSerializer(read_only=True)

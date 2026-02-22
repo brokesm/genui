@@ -7,6 +7,7 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
+router.register(r'', views.InchiKeySearchViewSet,basename='inchikey_search')
 router.register(r'set', views.SimSearchMolsetViewSet,basename='molset_sim_search')
 router.register(r'set', views.SubsSearchMolsetViewSet,basename='molset_sub_search')
 router.register(r'set', views.SmartsSearchMolsetViewSet,basename='molset_smarts_search')
