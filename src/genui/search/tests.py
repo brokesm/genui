@@ -36,13 +36,6 @@ class SearchMixIn(CompoundsMixIn):
                 "maxPerTarget": 10,
             },
         )
-        self.empty_molset = self.createMolSet(
-            reverse("chemblSet-list"),
-            {
-                "targets": ["CHEMBL251"],
-                "maxPerTarget": 0,
-            },
-        )
 
     def get_any_molecule_from_molset(self):
         """
@@ -76,19 +69,6 @@ class SearchMixIn(CompoundsMixIn):
         )
         return entity.inchiKey
     
-
-class SimilarityTests():
-
-    def post_data(ids, input, fp_type="morgaFP", metric="tanimoto", threshold=0, top_n=10):
-        post_data = {
-            "ids": ids,
-            "input": input,
-            "fp_type": fp_type,
-            "metric": metric,
-            "threshold": threshold,
-            "top_n": top_n,
-        }
-        return post_data
 
 class SearchEndpointsTestCase(SearchMixIn, APITestCase):
 
