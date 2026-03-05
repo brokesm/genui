@@ -64,4 +64,4 @@ jobs:
         run: cd src && python manage.py migrate
 
       - name: Run tests
-        run: py.test -xv src/genui/search
+        run: py.test -xv src/
