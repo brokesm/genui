@@ -32,6 +32,7 @@ from genui.search.serializers import (
     BaseSearchParamsSerializer,
     BaseSearchResponseSerializer,
     InchiKeySearchParamsSerializer,
+    InchiKeyOccurrenceSearchResponseSerializer,
     InchiKeySearchResponseSerializer
     )
 
@@ -42,39 +43,47 @@ class BaseSearch(GenericViewSet):
     response_serializer_class = BaseSearchResponseSerializer
 
     def get_molset_ids(self, request, ids):
-        raise NotImplementedError
+        return None
     
     def build_queryset(self, molset_ids, params):
         raise NotImplementedError
     
-    def do_search(self, request):
-        
+    def serialize_params(self, request):
         params_ser = self.serializer_class(data=request.data)
         params_ser.is_valid(raise_exception=True)
         params = params_ser.validated_data
-        top_n = params["top_n"]
-        ids = params["ids"]
+        return params
+    
+    def get_searched_count(self, request, molset_ids):
+        if molset_ids is None:
+            condition = Q(providers__project__owner=request.user)
+        else:
+            condition = Q(providers__id__in=molset_ids) & Q(providers__project__owner=request.user)
 
-        molset_ids = self.get_molset_ids(request,ids)
-        if isinstance(molset_ids, Response):
-            return molset_ids
-        
-        qs = self.build_queryset(molset_ids,params)
-        hits = qs[:top_n]
-
-        total_searched = (
-            self.get_queryset()
-            .filter(Q(providers__id__in=molset_ids) & Q(providers__project__owner=request.user))
-            .distinct()
-            .count()
-        )
-
+        total_searched = self.get_queryset().filter(condition).distinct().count()
+        return total_searched
+    
+    def build_response(self,params,hits,total_searched):
         resp = {
             "query": params,
             "hits": hits,
             "total_searched": total_searched,
             "total_returned": len(hits),
         }
+        return resp
+    
+    def do_search(self, request):
+        
+        params = self.serialize_params(request)
+        ids = params["ids"] if "ids" in params else None
+
+        molset_ids = self.get_molset_ids(request,ids)
+        if isinstance(molset_ids, Response):
+            return molset_ids
+        
+        hits = self.build_queryset(molset_ids,params)
+        total_searched = self.get_searched_count(request,molset_ids)
+        resp = self.build_response(params,hits,total_searched)
 
         resp_ser = self.response_serializer_class(resp, context={"request": request})
         return Response(resp_ser.data, status=status.HTTP_200_OK)
@@ -123,6 +132,7 @@ class SimilaritySearch(BaseSearch):
         fp_type = params["fp_type"]
         metric = params["metric"]
         threshold = params["threshold"]
+        top_n = params["top_n"]
 
         fp_fn = self.fingerprints[fp_type]
         sim_fn = self.sims[metric]
@@ -138,7 +148,7 @@ class SimilaritySearch(BaseSearch):
             .distinct()
         )
 
-        return qs
+        return qs[:top_n]
     
 
 class SubstructureSearch(BaseSearch):
@@ -175,13 +185,28 @@ class SmartsSearch(BaseSearch):
         )
 
         return qs
+    
 
-class InchiKeySearch(GenericViewSet):
-    queryset = Project.objects.all()
+class InchiKeySearch(BaseSearch):
     serializer_class = InchiKeySearchParamsSerializer
     response_serializer_class = InchiKeySearchResponseSerializer
+
+    def build_queryset(self, molset_ids, params):
+        inchi_key = params["input"]
+        qs = (
+            self.get_queryset()
+            .filter(entity__inchiKey=inchi_key)
+        )
+
+        return qs
     
-    def build_queryset(self, params):
+
+class OccurrenceSearch(BaseSearch):
+    queryset = Project.objects.all()
+    serializer_class = InchiKeySearchParamsSerializer
+    response_serializer_class = InchiKeyOccurrenceSearchResponseSerializer
+    
+    def build_queryset(self, molset_ids, params):
         inchi_key = params["input"]
 
         qs = (
@@ -201,22 +226,15 @@ class InchiKeySearch(GenericViewSet):
 
         return qs
     
-    def do_search(self,request):
-        params_ser = self.serializer_class(data=request.data)
-        params_ser.is_valid(raise_exception=True)
-        params = params_ser.validated_data
-
-        qs = self.build_queryset(params)
-
+    def get_searched_count(self, request, molset_ids):
+        return None
+    
+    def build_response(self, params, qs, total_searched):
         resp = {
-            "query":params,
+            "query": params,
             "occurrence":qs
         }
-
-        print(qs[0])
-
-        resp_ser = self.response_serializer_class(resp)
-        return Response(resp_ser.data, status=status.HTTP_200_OK)
+        return resp
 
 
 class SimSearchMolsetViewSet(SearchMolset, SimilaritySearch):
@@ -241,14 +259,6 @@ class SmartsSearchMolsetViewSet(SearchMolset, SmartsSearch):
     def molset_smarts_search(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
-    
-
-class InchiKeySearchViewSet(InchiKeySearch):
-
-    @action(detail=False, methods=["post"], url_path="inchikey")
-    def molset_inchikey_search(self, request, *args, **kwargs):
-        response = self.do_search(request)
-        return response
 
 
 class SimSearchProjectViewSet(SearchProject, SimilaritySearch):
@@ -271,6 +281,22 @@ class SmartsSearchProjectViewSet(SearchProject, SmartsSearch):
 
     @action(detail=False, methods=["post"], url_path="smarts")
     def project_smarts_search(self, request, *args, **kwargs):
+        response = self.do_search(request)
+        return response
+    
+
+class InchiKeyOccurrenceSearchViewSet(OccurrenceSearch):
+
+    @action(detail=False, methods=["post"], url_path="inchikey")
+    def occurrence_inchikey_search(self, request, *args, **kwargs):
+        response = self.do_search(request)
+        return response
+    
+
+class InchiKeyProjectsSearchViewSet(InchiKeySearch):
+
+    @action(detail=False, methods=["post"], url_path="inchikey")
+    def projects_inchikey_search(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
     

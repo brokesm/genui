@@ -84,7 +84,10 @@ class MolSetInitializer(ABC):
         rdmol = Chem.MolFromSmiles(smiles, sanitize=True)
         if not rdmol:
             raise SMILESParsingError(smiles, None, f"Failed to create molecule during initialization of molecule set {repr(self._instance)} from SMILES: {smiles}")
-        return self.standardizer(rdmol)
+        
+        rdmol_std = self.standardizer(rdmol)
+        Chem.SanitizeMol(rdmol_std)
+        return rdmol_std
 
     def createMolecule(self, entity, molecule_class, create_kwargs=None):
         if not create_kwargs:
@@ -105,7 +108,7 @@ class MolSetInitializer(ABC):
         canon_smiles = Chem.MolToSmiles(rdmol_std, isomericSmiles=True, canonical=True, allHsExplicit=False)
         inchi = Chem.MolToInchi(rdmol_std)
         inchi_key = Chem.InchiToInchiKey(inchi)
-        morganFP = AllChem.GetMorganFingerprintAsBitVect(rdmol_std)
+        morganFP = AllChem.GetMorganFingerprintAsBitVect(rdmol_std, radius=2, nBits=2048)
         maccsFP = MACCSkeys.GenMACCSKeys(rdmol_std)
         if ChemicalEntity.objects.filter(inchiKey=inchi_key).exists():
             ret = ChemicalEntity.objects.get(

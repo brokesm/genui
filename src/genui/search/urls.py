@@ -7,15 +7,16 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'', views.InchiKeySearchViewSet,basename='inchikey_search')
-router.register(r'set', views.SimSearchMolsetViewSet,basename='molset_sim_search')
-router.register(r'set', views.SubsSearchMolsetViewSet,basename='molset_sub_search')
-router.register(r'set', views.SmartsSearchMolsetViewSet,basename='molset_smarts_search')
-router.register(r'project', views.SimSearchProjectViewSet, basename='project_sim_search')
-router.register(r'project', views.SubsSearchProjectViewSet, basename='project_sub_search')
-router.register(r'project', views.SmartsSearchProjectViewSet, basename='project_smarts_search')
+router.register(r'occurrence', views.InchiKeyOccurrenceSearchViewSet,basename='occurrence_inchikey_search')
+router.register(r'projects', views.InchiKeyProjectsSearchViewSet,basename='projects_inchikey_search')
+router.register(r'sets', views.SimSearchMolsetViewSet,basename='molsets_sim_search')
+router.register(r'sets', views.SubsSearchMolsetViewSet,basename='molsets_sub_search')
+router.register(r'sets', views.SmartsSearchMolsetViewSet,basename='molsets_smarts_search')
+router.register(r'projects', views.SimSearchProjectViewSet, basename='projects_sim_search')
+router.register(r'projects', views.SubsSearchProjectViewSet, basename='projects_sub_search')
+router.register(r'projects', views.SmartsSearchProjectViewSet, basename='projects_smarts_search')
 
-router.register(r'set',views.PropertyFilterViewSet, basename='molset_property_filters')
+router.register(r'sets',views.PropertyFilterViewSet, basename='molsets_property_filters')
 
 urlpatterns = [
     path('', include(router.urls))

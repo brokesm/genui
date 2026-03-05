@@ -9,10 +9,10 @@ from genui.compounds.models import Molecule, ChemicalEntity, MolSet, Activity
 from genui.projects.models import Project
 from rdkit import Chem
 
+
 class BaseSearchParamsSerializer(serializers.Serializer):
     input = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True, error_messages={"required": "Enter a valid structure"})
     canonical = serializers.CharField(read_only=True)
-    top_n = serializers.IntegerField(min_value=1, max_value=1000, required=False, default=5)
 
     ids = serializers.ListField(
         child=serializers.IntegerField(min_value=1, required=True),
@@ -51,10 +51,13 @@ class SimilaritySearchParamsSerializer(BaseSearchParamsSerializer):
     threshold = serializers.FloatField(min_value=0.0, max_value=1.0, required=False, allow_null=True, default=None)
     fp_type = serializers.ChoiceField(choices=FP_CHOICES, required=False, default="morganFP")
     metric = serializers.ChoiceField(choices=METRIC_CHOICES, required=False, default="tanimoto")
+    top_n = serializers.IntegerField(min_value=1, max_value=1000, required=False, default=5)
+
     
     
 class SubstructureSearchParamsSerializer(BaseSearchParamsSerializer):
     pass
+
     
 class SmartsSearchParamsSerializer(BaseSearchParamsSerializer):
 
@@ -66,6 +69,10 @@ class SmartsSearchParamsSerializer(BaseSearchParamsSerializer):
     
     def canonicalize(self, mol):
         return Chem.MolToSmarts(mol)
+    
+
+class InchiKeySearchParamsSerializer(serializers.Serializer):
+    input = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True, error_messages={"required": "Enter a valid inchiKey"})
     
 
 class PropertyFilterSerializer(serializers.Serializer):
@@ -100,9 +107,10 @@ class PropertyFilterSerializer(serializers.Serializer):
 
 
 class HitSerializer(MoleculeSerializer):
-    similarity = serializers.FloatField(read_only=True)
+    similarity = serializers.FloatField(read_only=True,required=False)
     project_ids = serializers.ListField(
         child=serializers.IntegerField(read_only=True),
+        required=False
     )
 
     class Meta:
@@ -140,11 +148,11 @@ class SmartsSearchResponseSerializer(BaseSearchResponseSerializer):
     query = SmartsSearchParamsSerializer(read_only=True)
 
 
-class InchiKeySearchParamsSerializer(serializers.Serializer):
-    input = serializers.CharField(required=True, allow_blank=False, trim_whitespace=True, error_messages={"required": "Enter a valid inchiKey"})
+class InchiKeySearchResponseSerializer(BaseSearchResponseSerializer):
+    query = InchiKeySearchParamsSerializer(read_only=True)
 
 
-class InchiKeySearchResponseSerializer(serializers.Serializer):
+class InchiKeyOccurrenceSearchResponseSerializer(serializers.Serializer):
     query = InchiKeySearchParamsSerializer(read_only=True) 
     occurrence = OccurrenceSerializer(read_only=True, many=True)
 
