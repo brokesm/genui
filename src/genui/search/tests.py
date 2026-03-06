@@ -78,7 +78,7 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
 
         post_data = {
             "ids": [self.molset.id],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
             "fp_type": "morganFP",
             "metric": "tanimoto",
             "threshold": 0,
@@ -103,17 +103,21 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
 
         post_data = {
             "ids": [self.molset.id],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
         self.assertIn("hits", response.data)
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
+
+        self.assertEqual(response.data["query"]["ids"], [self.molset.id])
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) > 0)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
 
 
     def test_molset_smarts_search(self):
@@ -125,7 +129,6 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
@@ -133,12 +136,17 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
 
+        self.assertEqual(response.data["query"]["ids"], [self.molset.id])
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) > 0)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
+    
     def test_molset_search_returns_404_for_missing_molset(self):
         url = reverse(URLS["molset_similarity"])
 
         post_data = {
             "ids": [99999999999],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
             "fp_type": "morganFP",
             "metric": "tanimoto",
             "threshold": 0,
@@ -146,10 +154,42 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 404)
         self.assertIn("error", response.data)
+
+    def test_number_of_hits(self):
+        url = reverse(URLS["molset_similarity"])
+        n_compounds = len(self.molset.molecules.select_related("entity").all())
+
+        post_data = {
+            "ids": [self.molset.id],
+            "input": "c1ccccc1",
+            "fp_type": "morganFP",
+            "metric": "tanimoto",
+            "threshold": 0,
+            "top_n": n_compounds + 5,
+        }
+
+        response = self.client.post(url, data=post_data, format="json")
+
+        self.assertTrue(len(response.data["hits"]) == min(post_data["top_n"], n_compounds))
+
+    def test_unique_compounds(self):
+        url = reverse(URLS["molset_similarity"])
+
+        post_data = {
+            "ids": [self.molset.id],
+            "input": self.get_any_smiles(),
+            "fp_type": "morganFP",
+            "metric": "tanimoto",
+            "threshold": 0.999,
+            "top_n": 5,
+        }
+
+        response = self.client.post(url, data=post_data, format="json")
+        print(json.dumps(response.data, indent=4))
+        self.assertTrue(len(response.data["hits"]) == 1)
 
     # Project-based searches
     def test_project_similarity_search(self):
@@ -157,7 +197,7 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
 
         post_data = {
             "ids": [self.project.id],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
             "fp_type": "morganFP",
             "metric": "tanimoto",
             "threshold": 0,
@@ -165,41 +205,48 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
         self.assertIn("hits", response.data)
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
+
+        self.assertEqual(response.data["query"]["ids"], [self.project.id])
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) > 0)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
 
     def test_project_substructure_search(self):
         url = reverse(URLS["project_substructure"])
 
         post_data = {
             "ids": [self.project.id],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
         self.assertIn("hits", response.data)
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
+
+        self.assertEqual(response.data["query"]["ids"], [self.project.id])
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) > 0)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
 
     def test_project_smarts_search(self):
         url = reverse(URLS["project_smarts"])
 
         post_data = {
             "ids": [self.project.id],
-            "input": "CCC",
+            "input": "c1ccccc1[O,S]",
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
@@ -207,12 +254,17 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
 
+        self.assertEqual(response.data["query"]["ids"], [self.project.id])
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) > 0)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
+
     def test_project_search_returns_404_for_missing_project(self):
         url = reverse(URLS["project_similarity"])
 
         post_data = {
             "ids": [999999999],
-            "input": self.get_any_smiles(),
+            "input": "c1ccccc1",
             "fp_type": "morganFP",
             "metric": "tanimoto",
             "threshold": 0,
@@ -220,7 +272,6 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 404)
         self.assertIn("error", response.data)
@@ -235,13 +286,16 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
         self.assertIn("hits", response.data)
         self.assertIn("total_searched", response.data)
         self.assertIn("total_returned", response.data)
+
+        self.assertTrue(isinstance(response.data["hits"], list))
+        self.assertTrue(len(response.data["hits"]) == 1)
+        self.assertGreaterEqual(response.data["total_searched"],response.data["total_returned"])
 
     def test_inchikey_occurrence_search(self):
         url = reverse(URLS["inchikey_occurrence"])
@@ -251,7 +305,6 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
         }
 
         response = self.client.post(url, data=post_data, format="json")
-        print(json.dumps(response.data, indent=4))
 
         self.assertEqual(response.status_code, 200)
         self.assertIn("query", response.data)
