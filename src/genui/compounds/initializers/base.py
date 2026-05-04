@@ -108,7 +108,7 @@ class MolSetInitializer(ABC):
         canon_smiles = Chem.MolToSmiles(rdmol_std, isomericSmiles=True, canonical=True, allHsExplicit=False)
         inchi = Chem.MolToInchi(rdmol_std)
         inchi_key = Chem.InchiToInchiKey(inchi)
-        morganFP = AllChem.GetMorganFingerprintAsBitVect(rdmol_std, radius=2, nBits=2048)
+        morganFP = AllChem.GetMorganFingerprintAsBitVect(rdmol_std, radius=2, nBits=512)
         maccsFP = MACCSkeys.GenMACCSKeys(rdmol_std)
         if ChemicalEntity.objects.filter(inchiKey=inchi_key).exists():
             ret = ChemicalEntity.objects.get(

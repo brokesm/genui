@@ -183,7 +183,7 @@ class SearchEndpointsTestCase(SearchMixIn, APITestCase):
             "input": self.get_any_smiles(),
             "fp_type": "morganFP",
             "metric": "tanimoto",
-            "threshold": 0.999,
+            "threshold": 1,
             "top_n": 5,
         }
 
