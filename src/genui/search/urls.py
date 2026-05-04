@@ -6,18 +6,18 @@ from django.urls import path, include
 from rest_framework import routers
 from . import views
 
-router = routers.DefaultRouter()
-router.register(r'occurrence', views.InchiKeyOccurrenceSearchViewSet,basename='occurrence_inchikey_search')
-router.register(r'projects', views.InchiKeyProjectsSearchViewSet,basename='projects_inchikey_search')
-router.register(r'sets', views.SimSearchMolsetViewSet,basename='molsets_sim_search')
-router.register(r'sets', views.SubsSearchMolsetViewSet,basename='molsets_sub_search')
-router.register(r'sets', views.SmartsSearchMolsetViewSet,basename='molsets_smarts_search')
-router.register(r'projects', views.SimSearchProjectViewSet, basename='projects_sim_search')
-router.register(r'projects', views.SubsSearchProjectViewSet, basename='projects_sub_search')
-router.register(r'projects', views.SmartsSearchProjectViewSet, basename='projects_smarts_search')
-
-router.register(r'sets',views.PropertyFilterViewSet, basename='molsets_property_filters')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('occurrence/inchikey/', views.InchiKeyOccurrenceSearchView.as_view(), name='occurrence_inchikey_search'),
+    path('projects/inchikey/', views.InchiKeyProjectsSearchView.as_view(), name='projects_inchikey_search'),
+
+    path('sets/similarity/', views.SimSearchMolsetView.as_view(), name='molsets_sim_search'),
+    path('sets/substructure/', views.SubsSearchMolsetView.as_view(), name='molsets_sub_search'),
+    path('sets/smarts/', views.SmartsSearchMolsetView.as_view(), name='molsets_smarts_search'),
+
+    path('projects/similarity/', views.SimSearchProjectView.as_view(), name='projects_sim_search'),
+    path('projects/substructure/', views.SubsSearchProjectView.as_view(), name='projects_sub_search'),
+    path('projects/smarts/', views.SmartsSearchProjectView.as_view(), name='projects_smarts_search'),
+
+    # path('sets/filter/', views.PropertyFilterView.as_view(), name='molsets_property_filters'),
 ]

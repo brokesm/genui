@@ -5,12 +5,13 @@ from django.shortcuts import render
 """
 views.py in src/genui/search/
 
-Viewsets of the search package.
+Views of the search package.
 """
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import GenericAPIView
 from rest_framework.viewsets import GenericViewSet
 
 from django_rdkit.models import *
@@ -21,25 +22,25 @@ from genui.compounds.models import Molecule, MolSet
 from genui.projects.models import Project
 
 from genui.search.serializers import (
-    SimilaritySearchParamsSerializer, 
+    SimilaritySearchRequestSerializer, 
     SimilaritySearchResponseSerializer, 
-    SubstructureSearchParamsSerializer,
+    SubstructureSearchRequestSerializer,
     SubstructureSearchResponseSerializer,
-    SmartsSearchParamsSerializer,
+    SmartsSearchRequestSerializer,
     SmartsSearchResponseSerializer,
-    PropertyFilterSerializer,
-    PropertyFiltersResponseSerializer,
-    BaseSearchParamsSerializer,
+    # PropertyFilterSerializer,
+    # PropertyFiltersResponseSerializer,
+    BaseSearchRequestSerializer,
     BaseSearchResponseSerializer,
-    InchiKeySearchParamsSerializer,
-    InchiKeyOccurrenceSearchResponseSerializer,
+    InchiKeySearchRequestSerializer,
+    OccurrenceSearchResponseSerializer,
     InchiKeySearchResponseSerializer
     )
 
 
-class BaseSearch(GenericViewSet):
+class BaseSearch(GenericAPIView):
     queryset = Molecule.objects.all()
-    serializer_class = BaseSearchParamsSerializer
+    serializer_class = BaseSearchRequestSerializer
     response_serializer_class = BaseSearchResponseSerializer
 
     def get_molset_ids(self, request, ids):
@@ -60,7 +61,7 @@ class BaseSearch(GenericViewSet):
         else:
             condition = Q(providers__id__in=molset_ids) & Q(providers__project__owner=request.user)
 
-        total_searched = self.get_queryset().filter(condition).distinct().count()
+        total_searched = self.queryset.filter(condition).distinct().count()
         return total_searched
     
     def build_response(self,params,hits,total_searched):
@@ -77,10 +78,11 @@ class BaseSearch(GenericViewSet):
         params = self.serialize_params(request)
         ids = params["ids"] if "ids" in params else None
 
-        molset_ids = self.get_molset_ids(request,ids)
-        if isinstance(molset_ids, Response):
-            return molset_ids
+        return_value = self.get_molset_ids(request,ids)
+        if isinstance(return_value, Response):
+            return return_value
         
+        molset_ids = return_value
         hits = self.build_queryset(molset_ids,params)
         total_searched = self.get_searched_count(request,molset_ids)
         resp = self.build_response(params,hits,total_searched)
@@ -114,7 +116,7 @@ class SearchProject(BaseSearch):
 
 class SimilaritySearch(BaseSearch):
 
-    serializer_class = SimilaritySearchParamsSerializer
+    serializer_class = SimilaritySearchRequestSerializer
     response_serializer_class = SimilaritySearchResponseSerializer
 
     fingerprints = {
@@ -139,78 +141,78 @@ class SimilaritySearch(BaseSearch):
         value = fp_fn(Value(smiles))
 
         qs = (
-            self.get_queryset()
+            self.queryset
+            .filter(providers__id__in=molset_ids)
             .annotate(similarity=sim_fn(f"entity__{fp_type}", value))
             .order_by("-similarity")
             .filter(similarity__gte=threshold)
-            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
-            .filter(providers__id__in=molset_ids)
             .distinct()
+            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
         )
 
-        return qs[:top_n]
+        return list(qs[:top_n])
     
 
 class SubstructureSearch(BaseSearch):
-    serializer_class = SubstructureSearchParamsSerializer
+    serializer_class = SubstructureSearchRequestSerializer
     response_serializer_class = SubstructureSearchResponseSerializer
 
     def build_queryset(self, molset_ids, params):
         smiles = params["canonical"]
 
         qs = (
-            self.get_queryset()
-            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
+            self.queryset
             .filter(Q(providers__id__in=molset_ids) & Q(entity__rdMol__hassubstruct=smiles))
             .order_by(NUMHEAVYATOMS("entity__rdMol"))
             .distinct()
+            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
         )
 
-        return qs
+        return list(qs)
     
 
 class SmartsSearch(BaseSearch):
-    serializer_class = SmartsSearchParamsSerializer
+    serializer_class = SmartsSearchRequestSerializer
     response_serializer_class = SmartsSearchResponseSerializer
 
     def build_queryset(self, molset_ids, params):
         smarts = params["canonical"]
 
         qs = (
-            self.get_queryset()
-            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
+            self.queryset
             .filter(Q(providers__id__in=molset_ids) & Q(entity__rdMol__hassubstruct=QMOL(Value(smarts))))
             .order_by(NUMHEAVYATOMS("entity__rdMol"))
             .distinct()
+            .annotate(project_ids=ArrayAgg("providers__project__id",distinct=True))
         )
 
-        return qs
+        return list(qs)
     
 
 class InchiKeySearch(BaseSearch):
-    serializer_class = InchiKeySearchParamsSerializer
+    serializer_class = InchiKeySearchRequestSerializer
     response_serializer_class = InchiKeySearchResponseSerializer
 
     def build_queryset(self, molset_ids, params):
         inchi_key = params["input"]
         qs = (
-            self.get_queryset()
+            self.queryset
             .filter(entity__inchiKey=inchi_key)
         )
 
-        return qs
+        return list(qs)
     
 
 class OccurrenceSearch(BaseSearch):
     queryset = Project.objects.all()
-    serializer_class = InchiKeySearchParamsSerializer
-    response_serializer_class = InchiKeyOccurrenceSearchResponseSerializer
+    serializer_class = InchiKeySearchRequestSerializer
+    response_serializer_class = OccurrenceSearchResponseSerializer
     
     def build_queryset(self, molset_ids, params):
         inchi_key = params["input"]
 
         qs = (
-            self.get_queryset()
+            self.queryset
             .filter(molset__molecules__entity__inchiKey=inchi_key)
             .annotate(
                 providers=ArrayAgg(
@@ -224,7 +226,7 @@ class OccurrenceSearch(BaseSearch):
             )
         )
 
-        return qs
+        return list(qs)
     
     def get_searched_count(self, request, molset_ids):
         return None
@@ -237,92 +239,83 @@ class OccurrenceSearch(BaseSearch):
         return resp
 
 
-class SimSearchMolsetViewSet(SearchMolset, SimilaritySearch):
+class SimSearchMolsetView(SearchMolset, SimilaritySearch):
 
-    @action(detail=False, methods=["post"], url_path="similarity")
-    def molset_similarity_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
         
     
-class SubsSearchMolsetViewSet(SearchMolset, SubstructureSearch):
+class SubsSearchMolsetView(SearchMolset, SubstructureSearch):
 
-    @action(detail=False, methods=["post"], url_path="substructure")
-    def molset_substructure_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
 
     
-class SmartsSearchMolsetViewSet(SearchMolset, SmartsSearch):
+class SmartsSearchMolsetView(SearchMolset, SmartsSearch):
 
-    @action(detail=False, methods=["post"], url_path="smarts")
-    def molset_smarts_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
 
 
-class SimSearchProjectViewSet(SearchProject, SimilaritySearch):
+class SimSearchProjectView(SearchProject, SimilaritySearch):
 
-    @action(detail=False, methods=["post"], url_path="similarity")
-    def project_similarity_search(self, request, *args, **kwargs):
-        response = self.do_search(request)
-        return response
-    
-
-class SubsSearchProjectViewSet(SearchProject, SubstructureSearch):
-
-    @action(detail=False, methods=["post"], url_path="substructure")
-    def project_substructure_search(self, request, *args, **kwargs):
-        response = self.do_search(request)
-        return response
-
-
-class SmartsSearchProjectViewSet(SearchProject, SmartsSearch):
-
-    @action(detail=False, methods=["post"], url_path="smarts")
-    def project_smarts_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
     
 
-class InchiKeyOccurrenceSearchViewSet(OccurrenceSearch):
+class SubsSearchProjectView(SearchProject, SubstructureSearch):
 
-    @action(detail=False, methods=["post"], url_path="inchikey")
-    def occurrence_inchikey_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        response = self.do_search(request)
+        return response
+
+
+class SmartsSearchProjectView(SearchProject, SmartsSearch):
+
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
     
 
-class InchiKeyProjectsSearchViewSet(InchiKeySearch):
+class InchiKeyOccurrenceSearchView(OccurrenceSearch):
 
-    @action(detail=False, methods=["post"], url_path="inchikey")
-    def projects_inchikey_search(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        response = self.do_search(request)
+        return response
+    
+
+class InchiKeyProjectsSearchView(InchiKeySearch):
+
+    def post(self, request, *args, **kwargs):
         response = self.do_search(request)
         return response
     
     
-class PropertyFilterViewSet(SearchMolset):
+# class PropertyFilterView(SearchMolset):
 
-    serializer_class = PropertyFilterSerializer
-    response_serializer_class = PropertyFiltersResponseSerializer
+#     serializer_class = PropertyFilterSerializer
+#     response_serializer_class = PropertyFiltersResponseSerializer
 
-    def build_queryset(self, molset_ids, params):
-        property = params["property"]
-        relation = params["relation"]
-        value = params["value"]
+#     def build_queryset(self, molset_ids, params):
+#         property = params["property"]
+#         relation = params["relation"]
+#         value = params["value"]
 
-        qs = (
-            self.get_queryset()
-            .select_related("entity")
-            .prefetch_related("activities")
-            .filter(Q(providers__id__in=molset_ids) & Q(**{f"entity__rdMol__{property}__{relation}":value}))
-            .distinct()
-        )
+#         qs = (
+#             self.get_queryset()
+#             .select_related("entity")
+#             .prefetch_related("activities")
+#             .filter(Q(providers__id__in=molset_ids) & Q(**{f"entity__rdMol__{property}__{relation}":value}))
+#             .distinct()
+#         )
 
-        return qs
+#         return qs
     
-    @action(detail=False, methods=["post"], url_path="filter")
-    def molset_property_filters(self, request, *args, **kwargs):
-        response = self.do_search(request)
-        return response
+#     def post(self, request, *args, **kwargs):
+#         response = self.do_search(request)
+#         return response
     

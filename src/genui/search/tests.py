@@ -9,18 +9,18 @@ from genui.compounds.models import Molecule
 
 URLS = {
     # MolSet-scoped search endpoints
-    "molset_similarity": "molsets_sim_search-molset-similarity-search",
-    "molset_substructure": "molsets_sub_search-molset-substructure-search",
-    "molset_smarts": "molsets_smarts_search-molset-smarts-search",
+    "molset_similarity": "molsets_sim_search",
+    "molset_substructure": "molsets_sub_search",
+    "molset_smarts": "molsets_smarts_search",
 
     # Project-scoped search endpoints
-    "project_similarity": "projects_sim_search-project-similarity-search",
-    "project_substructure": "projects_sub_search-project-substructure-search",
-    "project_smarts": "projects_smarts_search-project-smarts-search",
+    "project_similarity": "projects_sim_search",
+    "project_substructure": "projects_sub_search",
+    "project_smarts": "projects_smarts_search",
 
     # InChIKey endpoints
-    "inchikey_occurrence": "occurrence_inchikey_search-occurrence-inchikey-search",
-    "inchikey_projects": "projects_inchikey_search-projects-inchikey-search",
+    "inchikey_occurrence": "occurrence_inchikey_search",
+    "inchikey_projects": "projects_inchikey_search",
 }
 
 
